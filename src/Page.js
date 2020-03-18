@@ -13,13 +13,16 @@ const Page = ({
   imageContainerStyles,
   allowFontScaling,
   titleStyles,
-  subTitleStyles,
+  subTitleStyles
 }) => {
   let titleElement = title;
   if (typeof title === 'string' || title instanceof String) {
     titleElement = (
       <View style={styles.padding}>
-        <Text allowFontScaling={allowFontScaling} style={[styles.title, isLight ? styles.titleLight : {}, titleStyles]}>
+        <Text
+          allowFontScaling={allowFontScaling}
+          style={[styles.title, isLight ? styles.titleLight : {}, titleStyles]}
+        >
           {title}
         </Text>
       </View>
@@ -30,16 +33,27 @@ const Page = ({
   if (typeof subtitle === 'string' || subtitle instanceof String) {
     subtitleElement = (
       <View style={styles.padding}>
-        <Text allowFontScaling={allowFontScaling} style={[styles.subtitle, isLight ? styles.subtitleLight : {}, subTitleStyles]}>
+        <Text
+          allowFontScaling={allowFontScaling}
+          style={[
+            styles.subtitle,
+            isLight ? styles.subtitleLight : {},
+            subTitleStyles
+          ]}
+        >
           {subtitle}
         </Text>
       </View>
     );
   }
 
+  const imageElement = image ? (
+    <View style={[styles.imageContainer, imageContainerStyles]}>{image}</View>
+  ) : null;
+
   return (
     <View style={[styles.container, containerStyles, { width, height }]}>
-      <View style={[styles.imageContainer, imageContainerStyles]}>{image}</View>
+      {imageElement}
       {titleElement}
       {subtitleElement}
     </View>
@@ -48,7 +62,7 @@ const Page = ({
 
 Page.propTypes = {
   isLight: PropTypes.bool.isRequired,
-  image: PropTypes.element.isRequired,
+  image: PropTypes.element,
   containerStyles: ViewPropTypes.style,
   imageContainerStyles: ViewPropTypes.style,
   title: PropTypes.oneOfType([PropTypes.string, PropTypes.element]).isRequired,
@@ -58,7 +72,7 @@ Page.propTypes = {
   titleStyles: Text.propTypes.style,
   subTitleStyles: Text.propTypes.style,
   width: PropTypes.number.isRequired,
-  height: PropTypes.number.isRequired,
+  height: PropTypes.number.isRequired
 };
 
 Page.defaultProps = {
@@ -66,7 +80,7 @@ Page.defaultProps = {
   imageContainerStyles: null,
   allowFontScaling: true,
   titleStyles: null,
-  subTitleStyles: null,
+  subTitleStyles: null
 };
 
 const { width, height } = Dimensions.get('window');
@@ -78,34 +92,34 @@ const styles = {
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: potrait ? 'center' : 'flex-start',
-    paddingTop: potrait ? 0 : 10,
+    paddingTop: potrait ? 0 : 10
   },
   imageContainer: {
     flex: 0,
     paddingBottom: potrait ? 60 : 10,
     alignItems: 'center',
-    width: '100%',
+    width: '100%'
   },
   padding: {
-    paddingHorizontal: 10,
+    paddingHorizontal: 10
   },
   title: {
     textAlign: 'center',
     fontSize: 26,
     color: '#fff',
-    paddingBottom: 15,
+    paddingBottom: 15
   },
   titleLight: {
-    color: '#000',
+    color: '#000'
   },
   subtitle: {
     textAlign: 'center',
     fontSize: 16,
-    color: 'rgba(255, 255, 255, 0.7)',
+    color: 'rgba(255, 255, 255, 0.7)'
   },
   subtitleLight: {
-    color: 'rgba(0, 0, 0, 0.7)',
-  },
+    color: 'rgba(0, 0, 0, 0.7)'
+  }
 };
 
 export default Page;
